@@ -14,7 +14,8 @@ set(P7_PATCH_VERSION 0)
 set(P7_VERSION ${P7_MAJOR_VERSION}.${P7_MINOR_VERSION}.${P7_PATCH_VERSION})
 
 option(BUILD_SHARED_LIBS "Build shared libs" OFF)
-option(BUILD_TESTS "Build test" OFF)
+option(BUILD_TESTS "Build test" ON)
+option(BUILD_EXAMPLES "Build examples" ON)
 
 ##########################
 #  Sources configuration #
@@ -56,7 +57,7 @@ endif()
 #    P7 configuration    #
 ##########################
 
-add_library(P7 "${SOURCES}" "${RESOURCES}")
+add_library(P7 "${SOURCES}" "${HEADERS}" "${RESOURCES}")
 
 #Headers configuration
 generate_export_header(P7
@@ -84,6 +85,11 @@ if(WIN32)
   endif()
 else()
   target_include_directories(P7 PRIVATE "Shared/Platforms/Linux_x86/")
+  if(BUILD_SHARED_LIBS)
+    target_link_libraries(P7 PRIVATE pthread rt)
+  else()
+    target_link_libraries(P7 PUBLIC pthread rt)
+  endif()
 endif()
 
 if(WIN32)
@@ -128,6 +134,7 @@ install(
 ##########################
 
 if(BUILD_TESTS)
+
   add_executable(P7-Test-Speed ${SOURCES_TEST_SPEED})
   #add_executable(P7-Test-SpeedParallel ${SOURCES_TEST_SPEEDPARALLEL})
   add_executable(P7-Test-Trace ${SOURCES_TEST_TRACE})
@@ -156,6 +163,10 @@ if(BUILD_TESTS)
     target_include_directories(P7-Test-Trace PRIVATE "Shared/Platforms/Linux_x86/")
   endif()
 endif()
+
+if(BUILD_EXAMPLES)
+   add_subdirectory(Examples)
+endif(BUILD_EXAMPLES)
 
 ##########################
 #      Installation      #
