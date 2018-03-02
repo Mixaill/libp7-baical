@@ -48,16 +48,50 @@ set(SOURCES_TEST_SPEEDPARALLEL "Tests/Speed/SpeedParallel.cpp")
 set(SOURCES_TEST_TRACE "Tests/Trace/Main.cpp")
 
 if(WIN32)
+  set(PLATFORM_DIR "Shared/Platforms/Windows_x86/")
+  set(PLATFORM_LIBS "ws2_32")
   set(RESOURCES "Sources/P7Client.rc")
 else()
+  set(PLATFORM_DIR "Shared/Platforms/Linux_x86/")
+  set(PLATFORM_LIBS pthread rt)
   set(RESOURCES "")
 endif()
+
+set(PLATFORM_HEADERS
+  ${PLATFORM_DIR}/PAtomic.h
+  ${PLATFORM_DIR}/PConsole.h
+  ${PLATFORM_DIR}/PCRC32.h
+  ${PLATFORM_DIR}/PFile.h
+  ${PLATFORM_DIR}/PFileSystem.h
+  ${PLATFORM_DIR}/PJournal.h
+  ${PLATFORM_DIR}/PLock.h
+  ${PLATFORM_DIR}/PMEvent.h
+  ${PLATFORM_DIR}/PProcess.h
+  ${PLATFORM_DIR}/PShared.h
+  ${PLATFORM_DIR}/PSignal.h
+  ${PLATFORM_DIR}/PSocket.h
+  ${PLATFORM_DIR}/PString.h
+  ${PLATFORM_DIR}/PSystem.h
+  ${PLATFORM_DIR}/PThreadShell.h
+  ${PLATFORM_DIR}/PTime.h
+  Shared/AList.h
+  Shared/CRC32.h
+  Shared/IFile.h
+  Shared/IJournal.h
+  Shared/IMEvent.h
+  Shared/Length.h
+  Shared/Lock.h
+  Shared/RBTree.h
+  Shared/Ticks.h
+  Shared/UTF.h
+  Shared/WString.h
+)
 
 ##########################
 #    P7 configuration    #
 ##########################
 
-add_library(P7 "${SOURCES}" "${HEADERS}" "${RESOURCES}")
+add_library(P7 "${SOURCES}" "${HEADERS}" "${PLATFORM_HEADERS}" "${RESOURCES}")
 
 #Headers configuration
 generate_export_header(P7
@@ -76,20 +110,11 @@ target_include_directories(P7 PRIVATE
 )
 
 #Build configuration
-if(WIN32)
-  target_include_directories(P7 PRIVATE "Shared/Platforms/Windows_x86/")
-  if(BUILD_SHARED_LIBS)
-    target_link_libraries(P7 PRIVATE "ws2_32")
-  else()
-    target_link_libraries(P7 PUBLIC "ws2_32")
-  endif()
+target_include_directories(P7 PRIVATE ${PLATFORM_DIR})
+if(BUILD_SHARED_LIBS)
+  target_link_libraries(P7 PRIVATE ${PLATFORM_LIBS})
 else()
-  target_include_directories(P7 PRIVATE "Shared/Platforms/Linux_x86/")
-  if(BUILD_SHARED_LIBS)
-    target_link_libraries(P7 PRIVATE pthread rt)
-  else()
-    target_link_libraries(P7 PUBLIC pthread rt)
-  endif()
+  target_link_libraries(P7 PUBLIC ${PLATFORM_LIBS})
 endif()
 
 if(WIN32)
