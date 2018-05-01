@@ -1,4 +1,3 @@
-cmake_policy(SET CMP0063 NEW)
 include_directories(${P7_Headers})
 
 set(SOURCE
