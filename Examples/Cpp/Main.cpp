@@ -76,6 +76,12 @@ int main(int i_iArgC, char* i_pArgV[])
             l_pTrace->P7_CRITICAL(l_hModule, TM("Test critical message #%d, {%I64d}"), l_dwIdx ++, l_qwI);
         }
     }
+    l_pTrace->P7_TRACE(l_hModule, TM("Test a message without additional args"));
+    l_pTrace->P7_INFO(l_hModule, TM("Test a message without additional args"));
+    l_pTrace->P7_DEBUG(l_hModule, TM("Test a message without additional args"));
+    l_pTrace->P7_WARNING(l_hModule, TM("Test a message without additional args"));
+    l_pTrace->P7_ERROR(l_hModule, TM("Test a message without additional args"));
+    l_pTrace->P7_CRITICAL(l_hModule, TM("Test a message without additional args"));
 
     l_pTrace->Unregister_Thread(0);
 
