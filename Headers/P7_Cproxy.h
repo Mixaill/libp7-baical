@@ -56,6 +56,8 @@
 #ifndef P7_PROXY_H
 #define P7_PROXY_H
 
+#include <stdarg.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

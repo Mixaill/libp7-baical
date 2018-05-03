@@ -29,9 +29,9 @@
 #ifndef P7_TRACE_H
 #define P7_TRACE_H
 
+#include <stdarg.h>
 #include "P7_Client.h"
 #include "P7_Cproxy.h"
-#include <stdarg.h> 
 
 #define TRACE_DEFAULT_SHARED_NAME                                 TM("P7.Trace")
 
