@@ -9,7 +9,7 @@ include(GenerateExportHeader)
 include(CMakePackageConfigHelpers)
 
 set(P7_MAJOR_VERSION 4)
-set(P7_MINOR_VERSION 6)
+set(P7_MINOR_VERSION 7)
 set(P7_PATCH_VERSION 0)
 set(P7_VERSION ${P7_MAJOR_VERSION}.${P7_MINOR_VERSION}.${P7_PATCH_VERSION})
 
@@ -74,6 +74,9 @@ set(PLATFORM_HEADERS
   ${PLATFORM_DIR}/PSystem.h
   ${PLATFORM_DIR}/PThreadShell.h
   ${PLATFORM_DIR}/PTime.h
+  ${PLATFORM_DIR}/PSharedLib.h
+  ${PLATFORM_DIR}/PPerformanceInfo.h
+  ${PLATFORM_DIR}/PProfiler.h
   Shared/AList.h
   Shared/CRC32.h
   Shared/IFile.h
@@ -85,6 +88,10 @@ set(PLATFORM_HEADERS
   Shared/Ticks.h
   Shared/UTF.h
   Shared/WString.h
+  Shared/SharedLib.h
+  Shared/IConsole.h
+  Shared/DnsResolver.h
+  Shared/IPerformanceInfo.h
 )
 
 ##########################

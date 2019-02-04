@@ -19,8 +19,6 @@
 #ifndef GTYPE_H
 #define GTYPE_H
 
-#include "P7_Export.h"
-
 #if   defined(_M_X64)\
    || defined(__amd64__)\
    || defined(__amd64)\
@@ -52,6 +50,11 @@
     #define XCHAR              wchar_t
     typedef wchar_t            tWCHAR;
 
+    #define WND_HANDLE         HWND
+
+    #define SHARED_EXT        L"dll"
+
+    #define P7_EXPORT __declspec(dllexport)
 
 ////////////////////////////////////////////////////////////////////////////////
 //LINUX specific definitions & types
@@ -61,8 +64,19 @@
     //Text marco, allow to use char automatically
     #define TM(i_pStr)    i_pStr
 
-    #define XCHAR         char
-    typedef short         tWCHAR;
+    #define XCHAR          char
+    typedef unsigned short tWCHAR;
+    #define WND_HANDLE     void*
+
+    #define SHARED_EXT    "so"
+
+    typedef struct _GUID
+    {
+        unsigned int   Data1;
+        unsigned short Data2;
+        unsigned short Data3;
+        unsigned char  Data4[ 8 ];
+    } GUID;
 
     #define __stdcall
     #define __cdecl
@@ -74,6 +88,8 @@
             #define __forceinline  __attribute__((always_inline))
         #endif
     #endif
+
+    #define P7_EXPORT __attribute__ ((visibility ("default")))
 
 #endif
 
