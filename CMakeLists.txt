@@ -38,6 +38,25 @@ set(SOURCES "Sources/ClBaical.cpp"
             "Sources/Proxy.cpp"
             "Sources/Telemetry.cpp"
             "Sources/Trace.cpp"
+            "Sources/ClBaical.h"
+            "Sources/ClFile.h"
+            "Sources/Client.h"
+            "Sources/ClNull.h"
+            "Sources/ClText.h"
+            "Sources/Telemetry.h"
+            "Sources/Trace.h"
+            "Sources/ClTextConsole.h"
+            "Sources/ClTextFile.h"
+            "Sources/ClTextSink.h"
+            "Sources/ClTextSyslog.h"
+            "Sources/Common.h"
+            "Sources/CommonClient.h"
+            "Sources/Formatter.h"
+            "Sources/PacketsPool.h"
+            "Sources/resource.h"
+            "Sources/Socket.h"
+            "Sources/targetver.h"
+            "Sources/TPackets.h"
 )
 
 
@@ -45,7 +64,11 @@ set(SOURCES_TEST_SPEED "Tests/Speed/Speed.cpp")
 
 set(SOURCES_TEST_SPEEDPARALLEL "Tests/Speed/SpeedParallel.cpp")
 
-set(SOURCES_TEST_TRACE "Tests/Trace/Main.cpp")
+set(SOURCES_TEST_TRACE
+   "Tests/Trace/Main.cpp"
+   "Tests/Trace/stdafx.h"
+   "Tests/Trace/targetver.h"
+)
 
 if(WIN32)
   set(PLATFORM_DIR "Shared/Platforms/Windows_x86/")
