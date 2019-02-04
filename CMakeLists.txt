@@ -77,6 +77,7 @@ set(PLATFORM_HEADERS
   ${PLATFORM_DIR}/PSharedLib.h
   ${PLATFORM_DIR}/PPerformanceInfo.h
   ${PLATFORM_DIR}/PProfiler.h
+  ${PLATFORM_DIR}/PCrashDump.h
   Shared/AList.h
   Shared/CRC32.h
   Shared/IFile.h
@@ -92,6 +93,10 @@ set(PLATFORM_HEADERS
   Shared/IConsole.h
   Shared/DnsResolver.h
   Shared/IPerformanceInfo.h
+  Shared/ISignal.h
+  Shared/Predicate.h
+  Shared/QStringHelper.h
+  Shared/UDP_NB.h
 )
 
 ##########################

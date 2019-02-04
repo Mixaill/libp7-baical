@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                             /
-// 2012-2017 (c) Baical                                                        /
+// 2012-2019 (c) Baical                                                        /
 //                                                                             /
 // This library is free software; you can redistribute it and/or               /
 // modify it under the terms of the GNU Lesser General Public                  /
@@ -29,9 +29,9 @@
 #ifndef P7_TRACE_H
 #define P7_TRACE_H
 
-#include <stdarg.h>
 #include "P7_Client.h"
 #include "P7_Cproxy.h"
+#include <stdarg.h> 
 
 #define TRACE_DEFAULT_SHARED_NAME                                 TM("P7.Trace")
 
@@ -72,84 +72,82 @@ enum eP7Trace_Level
 
 
 ////////////////////////////////////////////////////////////////////////////////
-#define P7_DELIVER(i_wID, i_eLevel, i_hModule, ...) Trace(  i_wID,\
-                                                            i_eLevel,\
-                                                            i_hModule,\
-                                                            (tUINT16)__LINE__,\
-                                                            __FILE__,\
-                                                            __FUNCTION__,\
-                                                            __VA_ARGS__)
+#define P7_DELIVER(i_wID, i_eLevel, i_hModule, ...) Trace(i_wID,\
+                                                                     i_eLevel,\
+                                                                     i_hModule,\
+                                                                     (tUINT16)__LINE__,\
+                                                                     __FILE__,\
+                                                                     __FUNCTION__,\
+                                                                     __VA_ARGS__)
 
 ////////////////////////////////////////////////////////////////////////////////
-#define P7_QTRACE(i_wID, i_hModule, ...)               P7_DELIVER(i_wID,\
+#define P7_QTRACE(i_wID, i_hModule, ...)    P7_DELIVER(i_wID,\
                                                                   EP7TRACE_LEVEL_TRACE,\
                                                                   i_hModule,\
                                                                   __VA_ARGS__)
-#define P7_TRACE(i_hModule, ...)                       P7_QTRACE(0,\
+
+#define P7_TRACE(i_hModule, ...)            P7_QTRACE(0,\
                                                                  i_hModule,\
                                                                  __VA_ARGS__)
 
 ////////////////////////////////////////////////////////////////////////////////
-#define P7_QDEBUG(i_wID, i_hModule, ...)               P7_DELIVER(i_wID,\
+#define P7_QDEBUG(i_wID, i_hModule,  ...)    P7_DELIVER(i_wID,\
                                                                   EP7TRACE_LEVEL_DEBUG,\
                                                                   i_hModule,\
                                                                   __VA_ARGS__)
-#define P7_DEBUG(i_hModule, ...)                       P7_QDEBUG(0,\
+
+#define P7_DEBUG(i_hModule,  ...)            P7_QDEBUG(0,\
                                                                  i_hModule,\
                                                                  __VA_ARGS__)
 
 ////////////////////////////////////////////////////////////////////////////////
-#define P7_QINFO(i_wID, i_hModule, ...)                P7_DELIVER(i_wID,\
+#define P7_QINFO(i_wID, i_hModule,  ...)     P7_DELIVER(i_wID,\
                                                                   EP7TRACE_LEVEL_INFO,\
                                                                   i_hModule,\
                                                                   __VA_ARGS__)
-#define P7_INFO(i_hModule, ...)                         P7_QINFO(0,\
+
+#define P7_INFO(i_hModule,  ...)             P7_QINFO(0,\
                                                                 i_hModule,\
                                                                 __VA_ARGS__)
 
 ////////////////////////////////////////////////////////////////////////////////
-#define P7_QWARNING(i_wID, i_hModule, ...)             P7_DELIVER(i_wID,\
+#define P7_QWARNING(i_wID, i_hModule,  ...)  P7_DELIVER(i_wID,\
                                                                   EP7TRACE_LEVEL_WARNING,\
                                                                   i_hModule,\
                                                                   __VA_ARGS__)
-#define P7_WARNING(i_hModule, ...)                     P7_QWARNING(0,\
+
+#define P7_WARNING(i_hModule,  ...)          P7_QWARNING(0,\
                                                                    i_hModule,\
                                                                    __VA_ARGS__)
 
 ////////////////////////////////////////////////////////////////////////////////
-#define P7_QERROR(i_wID, i_hModule, ...)               P7_DELIVER(i_wID,\
+#define P7_QERROR(i_wID, i_hModule,  ...)    P7_DELIVER(i_wID,\
                                                                   EP7TRACE_LEVEL_ERROR,\
                                                                   i_hModule,\
                                                                   __VA_ARGS__)
-#define P7_ERROR(i_hModule, ...)                       P7_QERROR(0,\
+
+#define P7_ERROR(i_hModule,  ...)            P7_QERROR(0,\
                                                                  i_hModule,\
                                                                  __VA_ARGS__)
 
 ////////////////////////////////////////////////////////////////////////////////
-#define P7_QCRITICAL(i_wID, i_hModule, ...) P7_DELIVER(i_wID,\
+#define P7_QCRITICAL(i_wID, i_hModule,  ...) P7_DELIVER(i_wID,\
                                                                   EP7TRACE_LEVEL_CRITICAL,\
                                                                   i_hModule,\
                                                                   __VA_ARGS__)
-#define P7_CRITICAL(i_hModule, ...)         P7_QCRITICAL(0,\
+
+#define P7_CRITICAL(i_hModule,  ...)         P7_QCRITICAL(0,\
                                                                     i_hModule,\
                                                                     __VA_ARGS__)
 
-//__declspec(novtable)
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////IP7_Trace//////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 class IP7_Trace
+    : public IP7C_Channel
 {
 public:
     typedef void* hModule;
-
-    ////////////////////////////////////////////////////////////////////////////
-    //Add_Ref - increase object's reference count
-    //          See documentation for details.
-    virtual tINT32 Add_Ref()                                                = 0;
-
-    ////////////////////////////////////////////////////////////////////////////
-    //Release - decrease object's reference count. If reference count less or
-    //          equal to 0 - object will be destroyed
-    //          See documentation for details.
-    virtual tINT32 Release()                                                = 0;
 
     ////////////////////////////////////////////////////////////////////////////
     //Set_Verbosity - function to set trace verbosity, traces with less priority 
